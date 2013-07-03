@@ -1,26 +1,24 @@
 #include "masterwindow.h"
 
+
 MasterWindow::MasterWindow(QWidget *parent)
     : QWidget(parent)
 {
     resize(400, 300);
     setWindowTitle("Lookshare");
- 
+
     start = new QWidget;
     home = new HomeScreen;
-    status = new Status;
-    notepad = new Notepad;
     storage = new Storage;
-
+    internet= new Internet;
     home->masterWindow = this;
-    notepad->masterWindow = this;
 
     stackLayout = new QStackedLayout;
-    stackLayout->addWidget(start);   // 0
-    stackLayout->addWidget(home);    // 1
-    stackLayout->addWidget(status);  // 2
-    stackLayout->addWidget(notepad); // 3
-    stackLayout->addWidget(storage); // 4
+    stackLayout->addWidget(start); // 0
+    stackLayout->addWidget(home); // 1
+
+    stackLayout->addWidget(storage); //2
+    stackLayout->addWidget(internet);  //3
 
     frame = new QFrame;
     frame->setFrameShape(QFrame::HLine);
@@ -50,18 +48,15 @@ MasterWindow::~MasterWindow()
 void MasterWindow::homeClicked()
 {
 
-    if (stackLayout->currentIndex() == 4)
-    {
-        if (storage->stackLayout->currentIndex() == 1)
-        {
-            storage->mplayer->deleteVideo();
-        }
-        if (storage->stackLayout->currentIndex() == 2)
-        {
-            storage->mpdf->deletePdf();
-        }
-    }
+    if (stackLayout->currentIndex() == 2)
+      {
+          if (storage->stackLayout->currentIndex() == 1)
+          {
+              storage->mplayer->deleteVideo();
+          }
+
+      }
+
 
     stackLayout->setCurrentIndex(1);
 }
-
